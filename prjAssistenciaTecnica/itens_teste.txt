@@ -1,0 +1,42 @@
+1
+101
+12/03/2026
+2
+computador nao liga apos queda de energia
+joao
+1
+1
+102
+15/03/2026
+5
+servidor sem boot erro no disco raid
+maria
+2
+1
+103
+18/03/2026
+3
+tela azul frequente windows
+ana
+1
+1
+104
+20/03/2026
+1
+limpeza e troca de pasta termica
+joao
+1
+1
+105
+22/03/2026
+4
+troca de fonte desktop dell
+maria
+1
+1
+106
+25/03/2026
+5
+servidor travando memoria ram
+ana
+2

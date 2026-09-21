@@ -10,11 +10,11 @@ void insereItemPorPrioridade(Lista *lst, Item *item);
 Item *criaItem();
 
 void imprimeLista(Lista *lst);
-void removeItem(Lista *lst, int x);
+void removeItem(Lista *lst, int id_os);
 void liberaLista(Lista *lst);
 
 Celula *buscaPorChave(Lista *lst, int chave);
 int verificaListaVazia(Lista *lst);
 
-void juntaLista(Lista *lst1, Lista *lst2);
-void insereOrdenando(Lista *lst1, Lista *lst2);
+Lista *filtrarOS(Lista *lst, int prioridade);
+void buscarOS(Lista *lst, int id_os);
