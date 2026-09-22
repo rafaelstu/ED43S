@@ -1,0 +1,36 @@
+1
+1
+mover
+1
+#00ff00
+svg
+1
+2
+desenhar
+2
+#ff0000
+png
+1
+3
+redimensionar
+1
+#0000ff
+svg
+1
+4
+mudar cor do preenchimento
+3
+#ffcc00
+png
+1
+5
+rotacionar
+2
+#00aaaa
+svg
+1
+6
+exportar projeto final
+1
+#000000
+pdf

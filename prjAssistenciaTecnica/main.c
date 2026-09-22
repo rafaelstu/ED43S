@@ -50,7 +50,7 @@ int main() {
       break;
     case 0:
       liberaLista(lst);
-      printf("memoria liberada, ate mais!\n");
+      printf("saindo\n");
       break;
     default:
       printf("opcao invalida\n");

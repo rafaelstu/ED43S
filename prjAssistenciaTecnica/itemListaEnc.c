@@ -43,10 +43,10 @@ Item *criaItem() {
   scanf("%d", &novo->prioridade);
   setbuf(stdin, NULL);
   printf("informe a descricao: ");
-  scanf(" %99[^\n]s", novo->descricao);
+  scanf(" %99[^\n]", novo->descricao);
   setbuf(stdin, NULL);
   printf("informe o tecnico: ");
-  scanf(" %49[^\n]s", novo->tecnico);
+  scanf(" %49[^\n]", novo->tecnico);
   setbuf(stdin, NULL);
   printf("informe a quantidade de volumes: ");
   scanf("%d", &novo->qtdVolumes);
