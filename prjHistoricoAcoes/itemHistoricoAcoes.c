@@ -4,10 +4,12 @@
 
 struct item {
   int idAcao;
-  char tipoAcao[40];
-  int camada;
+  char formaObjeto[30];
+  int posX;
+  int posY;
+  int escala;
   char cor[10];
-  char formato[10];
+  int preenchido;
 };
 
 struct celula {
@@ -30,14 +32,24 @@ Item *criaItem() {
 
   printf("informe o id da acao: ");
   scanf("%d", &novo->idAcao);
-  printf("informe o tipo da acao: ");
-  scanf(" %39[^\n]", novo->tipoAcao);
-  printf("informe a camada: ");
-  scanf("%d", &novo->camada);
+  setbuf(stdin, NULL);
+  printf("informe a forma do objeto: ");
+  scanf(" %29[^\n]", novo->formaObjeto);
+  setbuf(stdin, NULL);
+  printf("informe a posicao x: ");
+  scanf("%d", &novo->posX);
+  setbuf(stdin, NULL);
+  printf("informe a posicao y: ");
+  scanf("%d", &novo->posY);
+  setbuf(stdin, NULL);
+  printf("informe a escala: ");
+  scanf("%d", &novo->escala);
+  setbuf(stdin, NULL);
   printf("informe a cor (ex: #ff0000): ");
   scanf(" %9[^\n]", novo->cor);
-  printf("informe o formato (ex: svg, png, pdf): ");
-  scanf(" %9[^\n]", novo->formato);
+  setbuf(stdin, NULL);
+  printf("informe se e preenchido (0 nao, 1 sim): ");
+  scanf("%d", &novo->preenchido);
 
   return novo;
 }
@@ -54,10 +66,12 @@ void empilha(Pilha *p, Item *item) {
 
 void imprimeItem(Item *item) {
   printf("id da acao: %d\n", item->idAcao);
-  printf("tipo: %s\n", item->tipoAcao);
-  printf("camada: %d\n", item->camada);
+  printf("forma do objeto: %s\n", item->formaObjeto);
+  printf("posicao x: %d\n", item->posX);
+  printf("posicao y: %d\n", item->posY);
+  printf("escala: %d\n", item->escala);
   printf("cor: %s\n", item->cor);
-  printf("formato: %s\n", item->formato);
+  printf("preenchido: %d\n", item->preenchido);
 }
 
 void imprimePilha(Pilha *p) {
