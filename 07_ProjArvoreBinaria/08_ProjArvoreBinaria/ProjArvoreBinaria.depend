@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1405527846 source:d:\andre\pesquisa\publicações\livros\livro estutura de dados em c\códigos\projarvorebinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1405527956 d:\andre\pesquisa\publicações\livros\livro estutura de dados em c\códigos\projarvorebinaria\arvorebinaria.h
+
+1400694042 source:d:\andre\pesquisa\publicações\livros\livro estutura de dados em c\códigos\projarvorebinaria\arvorebinaria.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1406744776 source:d:\_utfpr\disciplinas\estrutura_de_dados\material auxiliar\projarvorebinaria\arvorebinaria.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1604511225 d:\_utfpr\disciplinas\estrutura_de_dados\material auxiliar\projarvorebinaria\arvorebinaria.h
+
+1604511026 source:d:\_utfpr\disciplinas\estrutura_de_dados\material auxiliar\projarvorebinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1406744776 source:d:\_utfpr\disciplinas\estrutura_de_dados\exemplos\projarvorebinaria\arvorebinaria.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1604511225 d:\_utfpr\disciplinas\estrutura_de_dados\exemplos\projarvorebinaria\arvorebinaria.h
+
+1604512236 source:d:\_utfpr\disciplinas\estrutura_de_dados\exemplos\projarvorebinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1406744776 source:d:\_utfpr\disciplinas\estrutura_de_dados\20_projarvorebinaria\arvorebinaria.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1604511225 d:\_utfpr\disciplinas\estrutura_de_dados\20_projarvorebinaria\arvorebinaria.h
+
+1604620048 source:d:\_utfpr\disciplinas\estrutura_de_dados\20_projarvorebinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1654301924 source:d:\_utfpr\disciplinas\estrutura_de_dados\21_projarvorebinaria\arvorebinaria.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1654804869 d:\_utfpr\disciplinas\estrutura_de_dados\21_projarvorebinaria\arvorebinaria.h
+
+1604620048 source:d:\_utfpr\disciplinas\estrutura_de_dados\21_projarvorebinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1690996523 source:d:\_utfpr\disciplinas\estruturas_de_dados_2\08_projarvorebinaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
+1690996992 d:\_utfpr\disciplinas\estruturas_de_dados_2\08_projarvorebinaria\arvorebinaria.h
+
+1690997071 source:d:\_utfpr\disciplinas\estruturas_de_dados_2\08_projarvorebinaria\arvorebinaria.c
+	<stdio.h>
+	<stdlib.h>
+	"ArvoreBinaria.h"
+
