@@ -1,43 +1,68 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "ArvoreAVL.h"
+#include <stdio.h>
 
-int main(){
-    NoArvAVL* avl;
-    int res,i;
-    //int N = 10, dados[10] = {50,25,10,5,7,3,30,20,8,15};
-    //int N = 11, dados[11] = {50,25,10,5,5,7,3,30,20,8,15};
-    int N = 10, dados[10] = {1,2,3,10,4,5,9,7,8,6};
 
-    avl = cria_ArvAVL();
-    printf("Inserindo dados: \n\n");
-    for(i=0;i<N;i++){
-        printf("\nInsere no %d: %d\n", i, dados[i]);
-        res = insere_ArvAVL(avl,dados[i]);
+int main() {
+  NoArvAVL *avl = cria_ArvAVL();
+  int opcao, res;
+  char nickname[33];
+
+  printf("\n========== SISTEMA DE BANIMENTO ==========\n");
+  do {
+    printf("\n1. incluir denuncia");
+    printf("\n2. remover jogador");
+    printf("\n3. consultar jogador");
+    printf("\n4. consultar por intervalo de datas");
+    printf("\n5. imprimir arvore em ordem");
+    printf("\n0. sair\n");
+    printf("opcao: ");
+    scanf("%d", &opcao);
+    setbuf(stdin, NULL);
+
+    switch (opcao) {
+    case 1: {
+      criaReport(avl);
+      break;
     }
-    printf("\n\n");
+    case 2: {
+      printf("nickname: ");
+      scanf(" %32[^\n]", nickname);
+      setbuf(stdin, NULL);
 
-    printf("\nImpressao da arvore AVL - pre ordem:\n");
-    preOrdem_ArvAVL(avl, -1);
-    printf("\n\n");
+      res = remove_ArvAVL(avl, nickname);
+      if (res == 1)
+        printf("jogador removido\n");
+      break;
+    }
+    case 3: {
+      printf("nickname: ");
+      scanf(" %32[^\n]", nickname);
+      setbuf(stdin, NULL);
 
-    printf("\nRemocao do no com valor 6:\n");
-    remove_ArvAVL(avl,6);
+      res = consulta_ArvAVL(avl, nickname);
+      if (res == 0)
+        printf("jogador nao encontrado\n");
+      break;
+    }
+    case 4: {
+      criaIntervalo(avl);
+      break;
+    }
+    case 5: {
+      printf("\narvore em ordem:\n");
+      emOrdem_ArvAVL(avl, "");
+      break;
+    }
+    }
+  } while (opcao != 0);
 
-    printf("\nRemocao do no com valor 7:\n");
-    remove_ArvAVL(avl,7);
+  printf("\narvore final em ordem:\n");
+  if (estaVazia_ArvAVL(avl))
+    printf("arvore vazia\n");
+  else
+    emOrdem_ArvAVL(avl, "");
 
-    printf("\nImpressao da arvore AVL - em ordem:\n");
-    emOrdem_ArvAVL(avl, -1);
-    printf("\n\n");
+  libera_ArvAVL(avl);
 
-    printf("\nImpressao da arvore AVL - pos ordem:\n");
-    posOrdem_ArvAVL(avl, -1);
-    printf("\n\n");
-
-
-    libera_ArvAVL(avl);
-
-
-    return 0;
+  return 0;
 }

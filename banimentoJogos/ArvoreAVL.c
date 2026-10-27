@@ -7,9 +7,10 @@ struct no_arvore {
   char info[33];
   int altura;
   int confianca;
-  time_t t_info;
+  time_t ultima_infracao;
   char motivo_report[33];
   int qtd_infracoes;
+  int tempo_banimento;
   struct no_arvore *esq;
   struct no_arvore *dir;
 };
@@ -53,6 +54,36 @@ int maior(int x, int y) {
     return x;
   else
     return y;
+}
+
+void calculaBanimento(struct no_arvore *no) {
+  if (no->qtd_infracoes == 1)
+    no->tempo_banimento = 24; // 24 horas
+  else if (no->qtd_infracoes == 2)
+    no->tempo_banimento = 7 * 24; // 7 dias
+  else
+    no->tempo_banimento = -1; // permanente
+}
+
+void imprimeBanimento(int tempo) {
+  if (tempo == -1)
+    printf("permanente\n");
+  else if (tempo == 24)
+    printf("24 horas\n");
+  else if (tempo == 7 * 24)
+    printf("7 dias\n");
+  else
+    printf("%d horas\n", tempo);
+}
+
+void imprime_NO(struct no_arvore *no) {
+  printf("\nnickname: %s\n", no->info);
+  printf("motivo do report: %s\n", no->motivo_report);
+  printf("nivel de confianca: %d\n", no->confianca);
+  printf("infracoes: %d\n", no->qtd_infracoes);
+  printf("ultima infracao: %s", ctime(&no->ultima_infracao));
+  printf("tempo de banimento: ");
+  imprimeBanimento(no->tempo_banimento);
 }
 
 int estaVazia_ArvAVL(NoArvAVL *raiz) {
@@ -125,6 +156,7 @@ int consulta_ArvAVL(NoArvAVL *raiz, char *valor) {
   struct no_arvore *atual = *raiz;
   while (atual != NULL) {
     if (strcmp(valor, atual->info) == 0) {
+      imprime_NO(atual);
       return 1;
     }
     if (strcmp(valor, atual->info) > 0)
@@ -135,9 +167,58 @@ int consulta_ArvAVL(NoArvAVL *raiz, char *valor) {
   return 0;
 }
 
+int buscaIntervalo_ArvAVL(NoArvAVL *raiz, time_t inicio, time_t fim) {
+  if (raiz == NULL || *raiz == NULL)
+    return 0;
+
+  int qtd = buscaIntervalo_ArvAVL(&((*raiz)->esq), inicio, fim);
+
+  if ((*raiz)->ultima_infracao >= inicio && (*raiz)->ultima_infracao <= fim) {
+    imprime_NO(*raiz);
+    qtd++;
+  }
+
+  qtd += buscaIntervalo_ArvAVL(&((*raiz)->dir), inicio, fim);
+  return qtd;
+}
+
+void criaIntervalo(NoArvAVL *raiz) {
+  struct tm tempoInicio = {0};
+  struct tm tempoFim = {0};
+  time_t inicio, fim;
+  int qtd;
+
+  printf("data/hora inicial (dd/mm/aaaa hh:mm:ss): ");
+  scanf("%d/%d/%d %d:%d:%d", &tempoInicio.tm_mday, &tempoInicio.tm_mon,
+        &tempoInicio.tm_year, &tempoInicio.tm_hour, &tempoInicio.tm_min,
+        &tempoInicio.tm_sec);
+  setbuf(stdin, NULL);
+  tempoInicio.tm_mon -= 1;
+  tempoInicio.tm_year -= 1900;
+  inicio = mktime(&tempoInicio);
+
+  printf("data/hora final (dd/mm/aaaa hh:mm:ss): ");
+  scanf("%d/%d/%d %d:%d:%d", &tempoFim.tm_mday, &tempoFim.tm_mon,
+        &tempoFim.tm_year, &tempoFim.tm_hour, &tempoFim.tm_min,
+        &tempoFim.tm_sec);
+  setbuf(stdin, NULL);
+  tempoFim.tm_mon -= 1;
+  tempoFim.tm_year -= 1900;
+  fim = mktime(&tempoFim);
+
+  printf("\njogadores denunciados no intervalo:\n");
+  qtd = buscaIntervalo_ArvAVL(raiz, inicio, fim);
+  if (qtd == 0)
+    printf("nenhum jogador encontrado\n");
+  else
+    printf("\ntotal de registros: %d\n", qtd);
+}
+
 //=================================
 void RotacaoLL(NoArvAVL *A) { // LL
-  printf(".RotacaoLL\n");
+  printf(".RotacaoLL - No %s com FB = %d\n", (*A)->info,
+         fatorBalanceamento_NO(*A));
+  printf("rotacao simples a direita.\n");
   struct no_arvore *B;
   B = (*A)->esq;
   (*A)->esq = B->dir;
@@ -148,7 +229,9 @@ void RotacaoLL(NoArvAVL *A) { // LL
 }
 
 void RotacaoRR(NoArvAVL *A) { // RR
-  printf(".RotacaoRR\n");
+  printf(".RotacaoRR - No %s com FB = %d\n", (*A)->info,
+         fatorBalanceamento_NO(*A));
+  printf("rotacao simples a esquerda.\n");
   struct no_arvore *B;
   B = (*A)->dir;
   (*A)->dir = B->esq;
@@ -159,16 +242,23 @@ void RotacaoRR(NoArvAVL *A) { // RR
 }
 
 void RotacaoLR(NoArvAVL *A) { // LR
+  printf(".RotacaoLR - No %s com FB = %d\n", (*A)->info,
+         fatorBalanceamento_NO(*A));
+  printf("rotacao dupla a direita (RR no filho esquerdo e LL no no).\n");
   RotacaoRR(&(*A)->esq);
   RotacaoLL(A);
 }
 
 void RotacaoRL(NoArvAVL *A) { // RL
+  printf(".RotacaoRL - No %s com FB = %d\n", (*A)->info,
+         fatorBalanceamento_NO(*A));
+  printf("rotacao dupla a esquerda (LL no filho direito e RR no no).\n");
   RotacaoLL(&(*A)->dir);
   RotacaoRR(A);
 }
 
-int insere_ArvAVL(NoArvAVL *raiz, char *valor) {
+int insere_ArvAVL(NoArvAVL *raiz, char *valor, char *motivo, int confianca,
+                  time_t ultima_infracao) {
   int res;
   if (*raiz == NULL) { // árvore vazia ou nó folha
     struct no_arvore *novo;
@@ -177,18 +267,27 @@ int insere_ArvAVL(NoArvAVL *raiz, char *valor) {
       return 0;
 
     strcpy(novo->info, valor);
+    strcpy(novo->motivo_report, motivo);
+    novo->confianca = confianca;
+    novo->ultima_infracao = ultima_infracao;
+    novo->qtd_infracoes = 1;
+    calculaBanimento(novo);
     novo->altura = 0;
     novo->esq = NULL;
     novo->dir = NULL;
     *raiz = novo;
+
+    printf("novo infrator. Banimento: ");
+    imprimeBanimento(novo->tempo_banimento);
     return 1;
   }
 
   struct no_arvore *atual = *raiz;
-  if (valor < atual->info) {
-    if ((res = insere_ArvAVL(&(atual->esq), valor)) == 1) {
+  if (strcmp(valor, atual->info) < 0) {
+    if ((res = insere_ArvAVL(&(atual->esq), valor, motivo, confianca,
+                             ultima_infracao)) == 1) {
       if (fatorBalanceamento_NO(atual) >= 2) {
-        if (valor < (*raiz)->esq->info) {
+        if (strcmp(valor, (*raiz)->esq->info) < 0) {
           RotacaoLL(raiz);
         } else {
           RotacaoLR(raiz);
@@ -196,10 +295,11 @@ int insere_ArvAVL(NoArvAVL *raiz, char *valor) {
       }
     }
   } else {
-    if (valor > atual->info) {
-      if ((res = insere_ArvAVL(&(atual->dir), valor)) == 1) {
+    if (strcmp(valor, atual->info) > 0) {
+      if ((res = insere_ArvAVL(&(atual->dir), valor, motivo, confianca,
+                               ultima_infracao)) == 1) {
         if (fatorBalanceamento_NO(atual) >= 2) {
-          if ((*raiz)->dir->info < valor) {
+          if (strcmp((*raiz)->dir->info, valor) < 0) {
             RotacaoRR(raiz);
           } else {
             RotacaoRL(raiz);
@@ -207,14 +307,50 @@ int insere_ArvAVL(NoArvAVL *raiz, char *valor) {
         }
       }
     } else {
-      printf("Valor duplicado!!\n");
-      return 0;
+      atual->qtd_infracoes++;
+      strcpy(atual->motivo_report, motivo);
+      atual->confianca = confianca;
+      atual->ultima_infracao = ultima_infracao;
+      calculaBanimento(atual);
+
+      printf("jogador reincidente (%d infracoes). Banimento: ",
+             atual->qtd_infracoes);
+      imprimeBanimento(atual->tempo_banimento);
+      return 2;
     }
   }
 
   atual->altura = maior(altura_NO(atual->esq), altura_NO(atual->dir)) + 1;
 
   return res;
+}
+
+void criaReport(NoArvAVL *raiz) {
+  char nickname[33], motivo[33];
+  int confianca, res;
+  struct tm tempo = {0};
+  time_t t;
+
+  printf("nickname: ");
+  scanf(" %32[^\n]", nickname);
+  setbuf(stdin, NULL);
+  printf("motivo do report: ");
+  scanf(" %32[^\n]", motivo);
+  setbuf(stdin, NULL);
+  printf("nivel de confianca: ");
+  scanf("%d", &confianca);
+  setbuf(stdin, NULL);
+  printf("data/hora da infracao (dd/mm/aaaa hh:mm:ss): ");
+  scanf("%d/%d/%d %d:%d:%d", &tempo.tm_mday, &tempo.tm_mon, &tempo.tm_year,
+        &tempo.tm_hour, &tempo.tm_min, &tempo.tm_sec);
+  setbuf(stdin, NULL);
+  tempo.tm_mon -= 1;
+  tempo.tm_year -= 1900;
+  t = mktime(&tempo);
+
+  res = insere_ArvAVL(raiz, nickname, motivo, confianca, t);
+  if (res == 0)
+    printf("erro ao inserir denuncia\n");
 }
 
 struct no_arvore *procuraMenor(struct no_arvore *atual) {
@@ -227,13 +363,14 @@ struct no_arvore *procuraMenor(struct no_arvore *atual) {
   return no1;
 }
 
-int remove_ArvAVL(NoArvAVL *raiz, char* valor) {
+int remove_ArvAVL(NoArvAVL *raiz, char *valor) {
   if (*raiz == NULL) { // valor não existe
     printf("valor não existe!!\n");
     return 0;
   }
   int res;
-  if (valor < (*raiz)->info) {
+  int cmp = strcmp(valor, (*raiz)->info);
+  if (cmp < 0) {
     if ((res = remove_ArvAVL(&(*raiz)->esq, valor)) == 1) {
       if (fatorBalanceamento_NO(*raiz) >= 2) {
         if (altura_NO((*raiz)->dir->esq) <= altura_NO((*raiz)->dir->dir))
@@ -242,9 +379,7 @@ int remove_ArvAVL(NoArvAVL *raiz, char* valor) {
           RotacaoRL(raiz);
       }
     }
-  }
-  // continuação
-  if ((*raiz)->info < valor) {
+  } else if (cmp > 0) {
     if ((res = remove_ArvAVL(&(*raiz)->dir, valor)) == 1) {
       if (fatorBalanceamento_NO(*raiz) >= 2) {
         if (altura_NO((*raiz)->esq->dir) <= altura_NO((*raiz)->esq->esq))
@@ -253,9 +388,7 @@ int remove_ArvAVL(NoArvAVL *raiz, char* valor) {
           RotacaoLR(raiz);
       }
     }
-  }
-  // continua
-  if ((*raiz)->info == valor) {
+  } else {
     if (((*raiz)->esq == NULL ||
          (*raiz)->dir == NULL)) { // nó tem 1 filho ou nenhum
       struct no_arvore *oldNode = (*raiz);
@@ -267,6 +400,11 @@ int remove_ArvAVL(NoArvAVL *raiz, char* valor) {
     } else { // nó tem 2 filhos
       struct no_arvore *temp = procuraMenor((*raiz)->dir);
       strcpy((*raiz)->info, temp->info);
+      strcpy((*raiz)->motivo_report, temp->motivo_report);
+      (*raiz)->confianca = temp->confianca;
+      (*raiz)->ultima_infracao = temp->ultima_infracao;
+      (*raiz)->qtd_infracoes = temp->qtd_infracoes;
+      (*raiz)->tempo_banimento = temp->tempo_banimento;
       remove_ArvAVL(&(*raiz)->dir, (*raiz)->info);
       if (fatorBalanceamento_NO(*raiz) >= 2) {
         if (altura_NO((*raiz)->esq->dir) <= altura_NO((*raiz)->esq->esq))
