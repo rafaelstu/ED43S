@@ -139,6 +139,16 @@ void emOrdem_ArvAVL(NoArvAVL *raiz, char *pai) {
   }
 }
 
+void emOrdem_NoArvAVL(NoArvAVL *raiz, char *pai) {
+  if (raiz == NULL)
+    return;
+  if (*raiz != NULL) {
+    emOrdem_NoArvAVL(&((*raiz)->esq), (*raiz)->info);
+    imprime_NO(*raiz);
+    emOrdem_NoArvAVL(&((*raiz)->dir), (*raiz)->info);
+  }
+}
+
 void posOrdem_ArvAVL(NoArvAVL *raiz, char *pai) {
   if (raiz == NULL)
     return;

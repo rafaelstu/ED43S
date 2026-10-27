@@ -16,4 +16,5 @@ int buscaIntervalo_ArvAVL(NoArvAVL *raiz, time_t inicio, time_t fim);
 void criaIntervalo(NoArvAVL *raiz);
 void preOrdem_ArvAVL(NoArvAVL *raiz, char *pai);
 void emOrdem_ArvAVL(NoArvAVL *raiz, char *pai);
+void emOrdem_NoArvAVL(NoArvAVL *raiz, char *pai);
 void posOrdem_ArvAVL(NoArvAVL *raiz, char *pai);

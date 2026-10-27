@@ -1,7 +1,6 @@
 #include "ArvoreAVL.h"
 #include <stdio.h>
 
-
 int main() {
   NoArvAVL *avl = cria_ArvAVL();
   int opcao, res;
@@ -14,6 +13,7 @@ int main() {
     printf("\n3. consultar jogador");
     printf("\n4. consultar por intervalo de datas");
     printf("\n5. imprimir arvore em ordem");
+    printf("\n6. imprimir informacoes dos nos da arvore em ordem");
     printf("\n0. sair\n");
     printf("opcao: ");
     scanf("%d", &opcao);
@@ -53,14 +53,21 @@ int main() {
       emOrdem_ArvAVL(avl, "");
       break;
     }
+    case 6: {
+      printf("\ninformacoes dos nos em ordem:\n");
+      emOrdem_NoArvAVL(avl, "");
+      break;
+    }
     }
   } while (opcao != 0);
 
   printf("\narvore final em ordem:\n");
   if (estaVazia_ArvAVL(avl))
     printf("arvore vazia\n");
-  else
+  else {
     emOrdem_ArvAVL(avl, "");
+    emOrdem_NoArvAVL(avl, "");
+  }
 
   libera_ArvAVL(avl);
 

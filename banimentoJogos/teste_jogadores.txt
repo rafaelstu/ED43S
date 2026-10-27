@@ -1,0 +1,40 @@
+1
+toxicKing
+Hacking
+95
+01/02/2026 10:00:00
+1
+afkMaster
+AFK
+80
+02/02/2026 11:30:00
+1
+hacker01
+Hacking
+90
+03/02/2026 12:00:00
+1
+flamer02
+Toxico
+70
+04/02/2026 13:15:00
+1
+smurf03
+Hacking
+85
+05/02/2026 14:45:00
+1
+toxicKing
+Hacking
+98
+10/02/2026 20:00:00
+1
+afkMaster
+AFK
+85
+12/02/2026 21:10:00
+1
+toxicKing
+Hacking
+100
+20/02/2026 22:30:00
