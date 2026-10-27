@@ -1,0 +1,35 @@
+1
+#viraliza
+Games
+1500000
+26/10/2026 10:00:00
+1
+#antiga
+Music
+2000000
+20/10/2026 10:00:00
+1
+#engajamento
+Tech
+500000
+26/10/2026 20:00:00
+1
+#normal
+Food
+1000
+26/10/2026 21:00:00
+1
+#outra
+Sports
+2000
+26/10/2026 21:30:00
+1
+#remover
+Teste
+500
+26/10/2026 21:40:00
+3
+#viraliza
+4
+#engajamento
+700000

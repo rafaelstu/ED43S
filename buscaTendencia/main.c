@@ -14,7 +14,8 @@ int main() {
     printf("\n3. consultar hashtag");
     printf("\n4. simular engajamento");
     printf("\n5. consultar tendencias por intervalo de datas");
-    printf("\n6. imprimir hashtags em ordem");
+    printf("\n6. imprimir arvore em ordem");
+    printf("\n7. imprimir informacoes dos nos da arvore em ordem");
     printf("\n0. sair\n");
     printf("opcao: ");
     scanf("%d", &opcao);
@@ -63,7 +64,12 @@ int main() {
       break;
     }
     case 6: {
-      printf("\nhashtags em ordem:\n");
+      printf("\narvore em ordem:\n");
+      emOrdem_ArvAVL(avl, "");
+      break;
+    }
+    case 7: {
+      printf("\ninformacoes dos nos em ordem:\n");
       emOrdem_NoArvAVL(avl, "");
       break;
     }
