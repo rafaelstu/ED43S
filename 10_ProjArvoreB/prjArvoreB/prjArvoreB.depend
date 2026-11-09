@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1697457238 source:d:\_utfpr\disciplinas\estruturas_de_dados_2\10_projarvoreb\prjarvoreb\arvoreb.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArvoreB.h"
+
+1697457519 d:\_utfpr\disciplinas\estruturas_de_dados_2\10_projarvoreb\prjarvoreb\arvoreb.h
+
+1697456952 source:d:\_utfpr\disciplinas\estruturas_de_dados_2\10_projarvoreb\prjarvoreb\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArvoreB.h"
+
+1725413819 source:d:\_utfpr\disciplinas\_estruturas_de_dados_2\10_projarvoreb\prjarvoreb\arvoreb.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArvoreB.h"
+
+1729109785 d:\_utfpr\disciplinas\_estruturas_de_dados_2\10_projarvoreb\prjarvoreb\arvoreb.h
+
+1729193709 source:d:\_utfpr\disciplinas\_estruturas_de_dados_2\10_projarvoreb\prjarvoreb\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArvoreB.h"
+
+1725413819 source:c:\_dados\_utfpr\disciplinas\_estruturas_de_dados_2\10_projarvoreb\prjarvoreb\arvoreb.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArvoreB.h"
+
+1729109785 c:\_dados\_utfpr\disciplinas\_estruturas_de_dados_2\10_projarvoreb\prjarvoreb\arvoreb.h
+
+1729193709 source:c:\_dados\_utfpr\disciplinas\_estruturas_de_dados_2\10_projarvoreb\prjarvoreb\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArvoreB.h"
+
