@@ -60,6 +60,14 @@ Antes de alterar qualquer arquivo, leia o código atual e identifique a menor mu
     - Execute o teste do módulo quando existir (`teste.txt`, `teste_jogadores.txt`, etc.).
     - Se o teste usar uma numeração de menu desatualizada, informe isso ao usuário; não altere o teste sem pedido.
 
+## Ambiente (Zed)
+
+- O usuário usa o editor **Zed**; as tasks ficam em `~/.config/zed/tasks.json`.
+- Task **"Compilar e Testar C (teste*.txt)"**: compila os `.c` da pasta do arquivo aberto com `gcc -std=c99 -Wall -Wextra` e executa o programa com cada `teste*.txt` da pasta.
+- Não rode `./programa < teste.txt` direto: o `setbuf(stdin, NULL)` usado nos projetos descarta a entrada já bufferizada e o menu entra em loop infinito. A task envia o arquivo **uma linha por vez** (com `sleep`), simulando digitação. Para testar fora do Zed, faça o mesmo:
+  `while IFS= read -r l || [ -n "$l" ]; do printf '%s\n' "$l"; sleep 0.05; done < teste.txt | ./programa`
+- Arquivos de teste devem terminar com a opção `0` (sair); sem ela o programa entra em loop ao chegar no fim da entrada.
+
 ## Fluxo esperado
 
 1. Ler o arquivo alvo e o arquivo de referência, se houver.
