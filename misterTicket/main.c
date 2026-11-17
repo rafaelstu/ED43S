@@ -1,42 +1,71 @@
+#include "ArvoreLLRB.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "ArvoreLLRB.h"
 
-int main(){
-    ArvLLRB * raiz = cria_ArvLLRB();
+int main() {
+  ArvLLRB *raiz = cria_ArvLLRB();
+  int opcao, res;
+  char info[33];
 
-    int i, N = 7, val[7] ={20,15,30,85,50,21,70};
-    printf("Inclusao dos valores 20,15,30,85,50,21,70. \n");
-//    int i, N = 9, val[9] = {11,2,1,5,4,7,8,14,15};
-//    printf("Inclusao dos valores 11,2,1,5,4,7,8,14,15. \n");
-    //int i, N = 10, val[10] ={10,15,10,20,30,70,70,85,50,50};
+  printf("\n========== MONITORAMENTO DE INGRESSOS ==========\n");
+  do {
+    printf("\n1. incluir lote");
+    printf("\n2. atualizar lote");
+    printf("\n3. consultar evento");
+    printf("\n4. buscar ingressos por faixa de preco");
+    printf("\n5. imprimir arvore em ordem");
+    printf("\n6. imprimir informacoes dos nos da arvore em ordem");
+    printf("\n0. sair\n");
+    printf("opcao: ");
+    scanf("%d", &opcao);
+    setbuf(stdin, NULL);
 
-    for(i=0; i< N; i++){
-        if (insere_ArvLLRB(raiz,val[i]) == 0) {
-            printf("Erro na insercao do valor: %d\n",val[i]);
-        }
+    switch (opcao) {
+    case 1: {
+      criaLote(raiz);
+      break;
     }
+    case 2: {
+      atualizaLote(raiz);
+      break;
+    }
+    case 3: {
+      printf("artista/evento: ");
+      setbuf(stdin, NULL);
+      scanf(" %32[^\n]", info);
+      setbuf(stdin, NULL);
 
-    printf("\nTotal de nos da arvore: %d \n",totalNO_ArvLLRB(raiz));
-    printf("Altura da arvore: %d \n",altura_ArvLLRB(raiz));
-    printf("\nImpressao da arvore usando percurso em ordem:\n");
-    emOrdem_ArvLLRB(raiz,0, -1);
+      res = consulta_ArvLLRB(raiz, info);
+      if (res == 0)
+        printf("evento nao encontrado\n");
+      break;
+    }
+    case 4: {
+      criaFaixaPreco(raiz);
+      break;
+    }
+    case 5: {
+      printf("\narvore em ordem:\n");
+      emOrdem_ArvLLRB(raiz, 0, "");
+      break;
+    }
+    case 6: {
+      printf("\ninformacoes dos nos em ordem:\n");
+      emOrdem_NoArvLLRB(raiz);
+      break;
+    }
+    }
+  } while (opcao != 0);
 
-    printf("\n\nRemocao da chave 50: \n\n");
-    remove_ArvLLRB(raiz,50);
-//    remove_ArvLLRB(raiz,20);
-//    remove_ArvLLRB(raiz,30);
+  printf("\neventos em ordem:\n");
+  if (estaVazia_ArvLLRB(raiz))
+    printf("arvore vazia\n");
+  else {
+    emOrdem_ArvLLRB(raiz, 0, "");
+    emOrdem_NoArvLLRB(raiz);
+  }
 
-    printf("\nImpressao da arvore usando percurso em ordem:\n");
-    emOrdem_ArvLLRB(raiz,0, -1);
+  libera_ArvLLRB(raiz);
 
-    printf("\n\nRemocao da chave 1: \n\n");
-    remove_ArvLLRB(raiz,1);
-
-    printf("\nImpressao da arvore usando percurso em ordem:\n");
-    emOrdem_ArvLLRB(raiz,0, -1);
-
-    libera_ArvLLRB(raiz);
-
-    return 0;
+  return 0;
 }

@@ -1,0 +1,64 @@
+1
+Coldplay
+Pista Premium
+500
+100
+10/11/2026 10:00:00
+1
+Anitta
+Camarote
+300
+50
+10/11/2026 11:00:00
+1
+Metallica
+Arquibancada
+200
+80
+10/11/2026 12:00:00
+1
+Beyonce
+Pista
+800
+20
+10/11/2026 13:00:00
+1
+Zeca Pagodinho
+Arquibancada
+150
+200
+10/11/2026 14:00:00
+1
+Iron Maiden
+Pista Premium
+650
+60
+10/11/2026 15:00:00
+1
+Coldplay
+Pista Premium
+550
+30
+11/11/2026 09:00:00
+2
+Anitta
+350
+40
+12/11/2026 08:00:00
+2
+Xuxa
+100
+10
+12/11/2026 08:00:00
+3
+Metallica
+3
+Xuxa
+4
+250
+600
+4
+1000
+2000
+5
+6
